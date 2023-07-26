@@ -3,13 +3,25 @@ import Title from './components/Title';
 import Counter from './components/Counter';
 import Newyear from './assets/new_year.jpg';
 import useCountdown from './components/hooks/useCountdown';
+import Calendar from './components/calendar';
+import {useState } from 'react';
 
 function App() {
-  const [day, hour, minute, second] = useCountdown("jan 1, 2024 00:00:00")
+  const [selectedDate, setSelectedDate] = useState("");
+  const [title, setTitle] = useState("");
+  const [day, hour, minute, second] = useCountdown(selectedDate)
+
   return (
-    <div className='App' style={{backgroundImage: `url(${Newyear})`}}>
+    <div className='App' style={{background: 'linear-gradient(to right, #ffd700, #8b0000)'}}>
+      <div className='calendar'>
+        <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+      </div>
+
       <div className='container'>
-        <Title></Title>
+      <div>
+        <h1><Title/></h1>
+        
+      </div>
         <div className='countdown-container'>
           <Counter title="Dias" number={day}/>
           <Counter title="Horas" number={hour}/>
@@ -21,5 +33,6 @@ function App() {
     </div>
   )
 }
+  
 
 export default App
